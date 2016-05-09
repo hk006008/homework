@@ -1,4 +1,4 @@
-
+﻿
 <!DOCTYPE html>
 <html>
 <head>
@@ -54,8 +54,24 @@ function init() {
   // assuming we loaded a JSON structure from elsewhere
   object = loader.parse( getModelJson() );
 
-  scene.add( object );
+  scene.add(object);
+  //
+  var light = new THREE.PointLight(0xffffff);
+  light.position.set(100, 100, 100);
+  scene.add(light);
 
+  THREE.ImageUtils.crossOrigin = '';
+
+  var basicMaterial = new THREE.MeshLambertMaterial({
+      side: THREE.DoubleSide,
+      map: THREE.ImageUtils.loadTexture('http://i.imgur.com/tqeiQzQ.jpg')
+  });
+  var body = new THREE.Mesh(
+  	new THREE.BoxGeometry(50, 5, 50),
+    basicMaterial
+  );
+  scene.add(body);
+  //
   window.addEventListener('resize', onWindowResize, false);
 }
 
